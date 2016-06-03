@@ -2,19 +2,6 @@ var ONE = 'one',
     TWO = 2,
     THREE = 'três';
 
-// Sanity check: just to make sure this won't be touched:
-function bogus(arg) {
-    if (arg <= 0) {
-        return 'foo';
-    }
-
-    if (arg === 1) {
-        return 'bar';
-    }
-
-    return testing();
-}
-
 function testing() {
     var initialAndUndefined,
         testUndefined,
@@ -48,3 +35,27 @@ function testing() {
            foo = fu;
     */
 }
+
+// TODO
+// The following is not supported yet:
+var a, b;
+
+// TODO
+// The following is not supported yet:
+var a = 'comment to follow', // this is a comment
+    b = 2, // no shit, sherlock
+    c;
+
+// Sanity check: just to make sure this won't be touched:
+function bogus(arg) {
+    if (arg <= 0) {
+        return 'foo';
+    }
+
+    if (arg === 1) {
+        return 'bar';
+    }
+
+    return testing();
+}
+

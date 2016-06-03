@@ -1,9 +1,10 @@
 " Assumptions:
-" 1.) one variable per line
-" 2.) Blocks (functions, object, arrays) should have their openings brackets
-" as the line's last char
-" 3.) "Comma last" style (commas are at the end of the line instead of in the
-" beggining
+" - One variable per line
+" - Blocks (functions, object, arrays) should have their openings brackets
+"   as the line's last char
+" - "Comma last" style (commas are at the end of the line instead of in the
+"   beggining
+" - No comments after var declarations (in the same line)
 
 fun! <SID>SingleToMultiVar()
     let b:originalCursorPosition = getpos('.')
