@@ -2,7 +2,7 @@
 
 cp ./test-original.js ./test-temp.js
 
-vim -e -s -S ./to-multi-var.vim +SingleToMultiVar +wq ./test-temp.js
+vim -u ./vimrc -e -s -S ./to-multi-var.vim +SingleToMultiVar +wq ./test-temp.js
 
 diff ./test-temp.js ./test-good.js
 hasDifference=$?
