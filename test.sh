@@ -7,11 +7,11 @@ vim -u ./vimrc -e -s -S ./to-multi-var.vim +SingleToMultiVar +wq ./test-temp.js
 diff ./test-temp.js ./test-good.js
 hasDifference=$?
 
-echo
 if [ $hasDifference -eq 0 ]; then
-    echo 'Test passed!'
+    echo 'TEST PASSED! File contents matched.'
 else
-    echo 'TEST FAILED: file contents differed'
+    echo
+    echo 'TEST FAILED! File contents differed.'
 fi
 
 rm ./test-temp.js
