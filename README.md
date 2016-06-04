@@ -75,7 +75,7 @@ Contributions in supporting those edge cases above are very welcome.
 3. Create a convenience link for later usage:
 
    ```shell
-   ln -s `pwd`/convert.sh /usr/local/bin/to-multi-var
+   ln -s `pwd`/to-multi-var /usr/local/bin/to-multi-var
    ```
 
 <a name="Usage">
@@ -86,13 +86,13 @@ Contributions in supporting those edge cases above are very welcome.
 You can call the script by running:
 
 ```shell
-<path-where-you-downloaded-it>/convert.sh [arguments]
+<path-where-you-downloaded-it>/to-multi-var [arguments]
 ```
 
 For example:
 
 ```shell
-/Users/lfilho/workspace/js-single-to-multi-var/convert.sh [arguments]
+/Users/lfilho/workspace/js-single-to-multi-var/to-multi-var [arguments]
 ```
 
 Or, if you did the convenience step from the installation steps above:
@@ -149,4 +149,3 @@ to-multi-var [arguments]
 ## Acknowledgments
 
 - [@stefanbuck](https://github.com/stefanbuck) for helping identifying different declaration cases.
-
