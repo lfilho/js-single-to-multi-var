@@ -4,11 +4,11 @@ goodFile='./test-good.js'
 orignalFile='./test-original.js'
 tempFile='./test-temp.js'
 
-cp $orignalFile $tempFile
+cp "$orignalFile" "$tempFile"
 
-./convert.sh $tempFile
+./convert.sh "$tempFile"
 
-diff $tempFile $goodFile
+diff "$tempFile" "$goodFile"
 hasDifference=$?
 
 if [ $hasDifference -eq 0 ]; then
@@ -18,6 +18,6 @@ else
     echo "✗ TEST FAILED! See contents' difference above."
 fi
 
-rm $tempFile
+rm "$tempFile"
 
 exit $hasDifference
