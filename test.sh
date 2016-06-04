@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 goodFile='./test-good.js'
 orignalFile='./test-original.js'
