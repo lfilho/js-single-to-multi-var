@@ -16,7 +16,7 @@ convertFile() {
 convertDir() {
     dir=$@
     echo "Recursing in the directory: $dir"
-    find "$dir" -type f | grep ".js" | while read file; do
+    find "$dir" -type f | grep ".js$" | while read file; do
         convertFile $file
     done
 }
