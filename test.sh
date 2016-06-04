@@ -6,12 +6,7 @@ tempFile='./test-temp.js'
 
 cp $orignalFile $tempFile
 
-vim -u ./vimrc \
-    -e -s \
-    -S ./to-multi-var.vim \
-    +SingleToMultiVar \
-    +wq \
-    $tempFile
+./convert.sh $tempFile
 
 diff $tempFile $goodFile
 hasDifference=$?
