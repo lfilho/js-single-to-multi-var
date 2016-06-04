@@ -1,19 +1,28 @@
 #!/usr/bin/env sh
 
-cp ./test-original.js ./test-temp.js
+goodFile='./test-good.js'
+orignalFile='./test-original.js'
+tempFile='./test-temp.js'
 
-vim -u ./vimrc -e -s -S ./to-multi-var.vim +SingleToMultiVar +wq ./test-temp.js
+cp $orignalFile $tempFile
 
-diff ./test-temp.js ./test-good.js
+vim -u ./vimrc \
+    -e -s \
+    -S ./to-multi-var.vim \
+    +SingleToMultiVar \
+    +wq \
+    $tempFile
+
+diff $tempFile $goodFile
 hasDifference=$?
 
 if [ $hasDifference -eq 0 ]; then
-    echo 'TEST PASSED! File contents matched.'
+    echo '✓ TEST PASSED! File contents matched.'
 else
     echo
-    echo 'TEST FAILED! File contents differed.'
+    echo "✗ TEST FAILED! See contents' difference above."
 fi
 
-rm ./test-temp.js
+rm $tempFile
 
 exit $hasDifference
