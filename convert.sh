@@ -21,14 +21,12 @@ convertDir() {
     done
 }
 
-# TODO create doc / examples about this in README:
 # If no arg passed, recurse current dir:
 if [ $# = 0 ]; then
     convertDir .
     exit 0
 fi
 
-# TODO create doc / examples about this in README:
 # Accepts multiple args, both files or directories:
 while [[ $# > 0 ]]; do
     if [ -n "$1" ] && [ -f "$1" ]; then
