@@ -75,7 +75,7 @@ Contributions in supporting those edge cases above are very welcome.
 3. Create a convenience link for later usage:
 
    ```shell
-   ln -s `pwd`/to-multi-var /usr/local/bin/to-multi-var
+   ln -s `pwd`/toMultiVar /usr/local/bin/toMultiVar
    ```
 
 <a name="Usage">
@@ -86,19 +86,19 @@ Contributions in supporting those edge cases above are very welcome.
 You can call the script by running:
 
 ```shell
-<path-where-you-downloaded-it>/to-multi-var [arguments]
+<path-where-you-downloaded-it>/toMultiVar [arguments]
 ```
 
 For example:
 
 ```shell
-/Users/lfilho/workspace/js-single-to-multi-var/to-multi-var [arguments]
+/Users/lfilho/workspace/js-single-to-multi-var/toMultiVar [arguments]
 ```
 
 Or, if you did the convenience step from the installation steps above:
 
 ```shell
-to-multi-var [arguments]
+toMultiVar [arguments]
 ```
 
 ### Arguments
@@ -106,7 +106,7 @@ to-multi-var [arguments]
 - **No arguments**
 
   ```shell
-  to-multi-var
+  toMultiVar
   ```
 
   Will recurse in all `*.js` files in the current directory
@@ -140,7 +140,7 @@ to-multi-var [arguments]
   You'd run:
 
   ```shell
-  to-multi-var file7.js folderC/file5.js folderB
+  toMultiVar file7.js folderC/file5.js folderB
   ```
 
   Arguments order doesn't matter.
