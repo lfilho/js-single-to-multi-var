@@ -111,13 +111,7 @@ Contributions in supporting those edge cases above are very welcome.
 <a name="Installation_As_a_shell_script">
 ### As a shell script
 
-1. Download / clone this repo.
-2. Within your shell, navigate to the folder you just downloaded / cloned.
-3. Create a convenience link for later usage:
-
-   ```shell
-   ln -s `pwd`/toMultiVar /usr/local/bin/toMultiVar
-   ```
+1. Download / clone this repo somewhere in your computer and remember where you did it :D
 
 <a name="Installation_As_a_vim_plugin">
 ### As a vim plugin
@@ -143,11 +137,7 @@ For example:
 /Users/lfilho/workspace/js-single-to-multi-var/toMultiVar [arguments]
 ```
 
-Or, if you did the convenience step from the installation steps above:
-
-```shell
-toMultiVar [arguments]
-```
+For the next examples in this file we'll just use `toMultiVar` for short.
 
 #### Arguments
 
