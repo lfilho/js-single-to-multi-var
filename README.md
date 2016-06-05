@@ -16,7 +16,41 @@ Javascript Single to Multiple Var
 <a name="Overview">
 ## Overview
 
-_(soon)_
+This script / plugins comes to rescue of the unfortunate people that need to convert things like:
+
+```javascript
+var a,
+    b = 2,
+    c = function() {
+        var x,
+            z;
+        //...
+    },
+    d = {
+       //...
+    },
+    e;
+```
+
+to
+
+```javascript
+var a;
+var b = 2;
+var c = function() {
+   var x,
+   var z;
+   //...
+};
+var d = {
+   //...
+};
+var e;
+```
+
+**Note that** it also adjusts the indentation accordingly. If you see your indentation messed up, you probably have different settings that the plugin's default - take a look at the [`vimrc`](vimrc) in use and adjust it to your taste.
+
+For more examples of the cases it covers or not, take a look at the `test-*` files to see what and how it will convert.
 
 <a name="Assumptions_Caveats">
 ## Assumptions / Caveats
