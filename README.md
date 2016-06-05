@@ -11,6 +11,7 @@ Javascript Single to Multiple Var
 - [Usage](#Usage)
   - [As a shell script](#Usage_As_a_shell_script) (for converting several files)
   - [As a vim plugin](#Usage_As_a_vim_plugin) (for every day usage)
+- [Tests](#Tests)
 - [Acknowledgments](#Acknowledgments)
 
 <a name="Overview">
@@ -207,6 +208,19 @@ After installing it, you can use it by:
    ```
    autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call toMultiVar#singleToMultiVar()<CR>
    ```
+
+<a name="Tests">
+## Tests
+
+This script/plugin was tested on:
+
+| OS    | Vim version                                               |
+| ----- | --------------------------------------------------------- |
+| Linux | 7.4 patches: 1-1817 (always the last vim version, via CI) |
+| OSX   | 7.4 patches: 1-969 (Homebrew's MacVim)                    |
+| OSX   | 7.4 patches: 1-1655 (Homebrew's MacVim)                   |
+
+For more information on how testing is done, see the [test file](test).
 
 <a name="Acknowledgments">
 ## Acknowledgments
