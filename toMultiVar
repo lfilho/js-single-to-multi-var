@@ -9,7 +9,8 @@ convertFile() {
         -e -s \
         -S "$SCRIPT_DIR/autoload/toMultiVar.vim" \
         +SingleToMultiVar \
-        +wq \
+        +update \
+        +q \
         "$file"
 }
 
