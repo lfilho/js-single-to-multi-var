@@ -1,3 +1,18 @@
+dependencies:
+  override:
+    - sudo apt-get install build-essential curl git python-setuptools ruby
+    - git clone https://github.com/Linuxbrew/brew.git ~/.linuxbrew
+    - brew install vim
+  post:
+    - vim --version
+    - diff --version
+
+machine:
+  environment:
+    PATH: $HOME/.linuxbrew/bin:$PATH
+    MANPATH: $HOME/.linuxbrew/share/man:$MANPATH
+    INFOPATH: $HOME/.linuxbrew/share/info:$INFOPATH
+
 test:
   override:
     - bash -xe ./test
