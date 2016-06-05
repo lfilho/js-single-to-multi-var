@@ -12,19 +12,29 @@ function testing() {
         var bar = THREE;
     };
     var object = {
-        one: 1,
-        two: 2
+        a: 0,
+        b: 1
     };
     var arrayWithObjects = [{
-        a: 1,
-        b: 2
+        c: 2,
+        d: 3
     }, {
-        c: 3,
-        d: 4
+        e: 4,
+        f: 5
     }];
+    var functionPlusObject = calling('arg', {
+        g: 6,
+        h: 7
+    });
     // two lines of comment
     // between lines
     var lastLoneWolf;
+
+    var anotherUndefined;
+    var functionPlusObject = calling('arg', {
+        i: 8,
+        j: 9
+    });
 
     // These should remaing unchanged:
     // Comment with var foo = bar; in the middle
