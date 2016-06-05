@@ -47,7 +47,7 @@ fun! s:convertDeclarationBlock()
     endif
 
     if s:endsWith('[(\[{]')
-        if !s:startsWith('var')
+        if !s:startsWith('var') && !s:startsWith('[)\]}]')
             call s:prependVar()
         endif
 

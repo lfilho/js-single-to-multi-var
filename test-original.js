@@ -15,6 +15,13 @@ function testing() {
             one: 1,
             two: 2
         },
+        arrayWithObjects = [{
+            a: 1,
+            b: 2
+        }, {
+            c: 3,
+            d: 4
+        }],
         // two lines of comment
         // between lines
         lastLoneWolf;
