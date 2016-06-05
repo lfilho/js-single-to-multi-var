@@ -4,7 +4,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 convertFile() {
     file=$@
-    echo "➜ Converting var declarations in: $file"
+    echo "→ Converting var declarations in: $file"
     vim -u "$SCRIPT_DIR/vimrc" \
         -e -s \
         -S "$SCRIPT_DIR/autoload/toMultiVar.vim" \
