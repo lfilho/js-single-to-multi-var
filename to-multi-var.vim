@@ -9,7 +9,7 @@
 fun! <SID>SingleToMultiVar()
     let b:originalCursorPosition = getpos('.')
 
-    norm G
+    norm! G
     while s:hasMultilineVar()
         call s:convertDeclarationBlock()
     endwhile
@@ -27,7 +27,7 @@ fun! s:convertDeclarationBlock()
 
     if s:startsWith('//')
         call s:reindentLine()
-        norm j
+        norm! j
         let b:currentLine = s:getCurrentLine()
     endif
 
@@ -45,7 +45,7 @@ fun! s:convertDeclarationBlock()
         endif
 
         " Realigns block and go to its ending line:
-        norm $=%$%
+        norm! $=%$%
     endif
 
     if s:endsWith(',')
@@ -54,7 +54,7 @@ fun! s:convertDeclarationBlock()
         if !s:startsWith('[)\]}]') && !s:startsWith('var')
             call s:prependVar()
         endif
-        norm j
+        norm! j
     endif
 
     return s:convertDeclarationBlock()
@@ -77,12 +77,12 @@ fun! s:startsWith(string)
 endf
 
 fun! s:prependVar()
-    norm ^ivar 
+    norm! ^ivar 
     call s:reindentLine()
 endf
 
 fun! s:reindentLine()
-    norm ==
+    norm! ==
 endf
 
 command! SingleToMultiVar call <SID>SingleToMultiVar()
