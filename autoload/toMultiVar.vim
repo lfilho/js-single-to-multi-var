@@ -1,3 +1,10 @@
+" ==============================================
+" Example on how to map it (also on the README):
+" ==============================================
+
+" autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>; :call toMultiVar#singleToMultiVar()<CR>
+
+" ------------
 " Assumptions:
 " - One variable per line
 " - Blocks (functions, object, arrays) should have their openings brackets
@@ -6,7 +13,7 @@
 "   beggining
 " - No comments after var declarations (in the same line)
 
-fun! <SID>SingleToMultiVar()
+fun! toMultiVar#singleToMultiVar()
     let b:originalCursorPosition = getpos('.')
 
     norm! G
@@ -85,4 +92,4 @@ fun! s:reindentLine()
     norm! ==
 endf
 
-command! SingleToMultiVar call <SID>SingleToMultiVar()
+command! SingleToMultiVar call toMultiVar#singleToMultiVar()
