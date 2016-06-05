@@ -196,16 +196,27 @@ toMultiVar [arguments]
 <a name="Usage_As_a_vim_plugin">
 ### As a vim plugin
 
-After installing it, you can call the exposed command `SingleToMultiVar` (which will call the plugin's method `toMultiVar#singleToMultiVar()`). You would invoke it like so:
-```
-:SingleToMultiVar
-```
+After installing it, you can use it by:
+1. Calling the plugin directly:
 
-If you want to map it to a key combination (let's say `<leader>v`), it would look something like:
+   ```
+   call toMultiVar#singleToMultiVar()
+   ```
+2. Creating a command for later usage (put this somewhere in your vimrc):
 
-```
-autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call toMultiVar#singleToMultiVar()<CR>
-```
+   ```
+   command! SingleToMultiVar call toMultiVar#singleToMultiVar()
+   ```
+   And then invoking it like so:
+
+   ```
+   :SingleToMultiVar
+   ```
+3. Mapping it to a key combination (let's say `<leader>v`):
+
+   ```
+   autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call toMultiVar#singleToMultiVar()<CR>
+   ```
 
 <a name="Acknowledgments">
 ## Acknowledgments
