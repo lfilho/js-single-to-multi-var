@@ -37,6 +37,4 @@ while [[ $# > 0 ]]; do
     shift
 done
 
-# TODO count number of processed files / directories
-
 exit 0
