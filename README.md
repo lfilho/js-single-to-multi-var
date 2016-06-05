@@ -6,7 +6,11 @@ Javascript Single to Multiple Var
 - [Overview](#Overview)
 - [Assumptions/Caveats](#Assumptions_Caveats)
 - [Installation](#Installation)
+  - [As a shell script](#Installation_As_a_shell_script) (for converting several files)
+  - [As a vim plugin](#Installation_As_a_vim_plugin) (for every day usage)
 - [Usage](#Usage)
+  - [As a shell script](#Usage_As_a_shell_script) (for converting several files)
+  - [As a vim plugin](#Usage_As_a_vim_plugin) (for every day usage)
 - [Acknowledgments](#Acknowledgments)
 
 <a name="Overview">
@@ -70,6 +74,9 @@ Contributions in supporting those edge cases above are very welcome.
 <a name="Installation">
 ## Installation
 
+<a name="Installation_As_a_shell_script">
+### As a shell script
+
 1. Download / clone this repo.
 2. Within your shell, navigate to the folder you just downloaded / cloned.
 3. Create a convenience link for later usage:
@@ -78,10 +85,17 @@ Contributions in supporting those edge cases above are very welcome.
    ln -s `pwd`/toMultiVar /usr/local/bin/toMultiVar
    ```
 
+<a name="Installation_As_a_vim_plugin">
+### As a vim plugin
+
+1. Just add `lfilho/js-single-to-multi-var` to your your plugin list and tell your plugin manager to install it
+
 <a name="Usage">
 ## Usage
 
-### Calling the script
+<a name="Usage_As_a_shell_script">
+### As a shell script
+#### Calling the script
 
 You can call the script by running:
 
@@ -101,7 +115,7 @@ Or, if you did the convenience step from the installation steps above:
 toMultiVar [arguments]
 ```
 
-### Arguments
+#### Arguments
 
 - **No arguments**
 
@@ -144,6 +158,20 @@ toMultiVar [arguments]
   ```
 
   Arguments order doesn't matter.
+
+<a name="Usage_As_a_vim_plugin">
+### As a vim plugin
+
+After installing it, you can call the exposed command `SingleToMultiVar` (which will call the plugin's method `toMultiVar#singleToMultiVar()`). You would invoke it like so:
+```
+:SingleToMultiVar
+```
+
+If you want to map it to a key combination (let's say `<leader>v`), it would look something like:
+
+```
+autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call toMultiVar#singleToMultiVar()<CR>
+```
 
 <a name="Acknowledgments">
 ## Acknowledgments
