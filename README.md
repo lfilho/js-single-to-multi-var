@@ -228,3 +228,4 @@ For more information on how testing is done, see the [test file](test).
 ## Acknowledgments
 
 - [@stefanbuck](https://github.com/stefanbuck) for helping identifying different declaration cases.
+- [@matthewfranglen](https://github.com/matthewfranglen) for helping debugging vim behaving weirdly
