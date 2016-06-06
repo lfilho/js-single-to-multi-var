@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-readonly SCRIPT_DIR
+ROOT_DIRECTORY="$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )"
+readonly ROOT_DIRECTORY
 
 convert_file() {
     local file=$@
 
     echo "→ Converting var declarations in: ${file}"
-    vim -u "${SCRIPT_DIR}/vimrc" \
+    vim -u "${ROOT_DIRECTORY}/vimrc" \
         -e -s \
-        -S "${SCRIPT_DIR}/autoload/to_multi_var.vim" \
+        -S "${ROOT_DIRECTORY}/autoload/to_multi_var.vim" \
         +SingleToMultiVar \
         +update \
         +q \
