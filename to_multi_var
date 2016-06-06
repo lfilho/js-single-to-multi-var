@@ -3,7 +3,8 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 convert_file() {
-    file=$@
+    local file=$@
+
     echo "→ Converting var declarations in: $file"
     vim -u "$SCRIPT_DIR/vimrc" \
         -e -s \
@@ -15,7 +16,9 @@ convert_file() {
 }
 
 convert_directory() {
-    dir=$@
+    local dir=$@
+    local file
+
     echo "Recursing in the directory: $dir"
     find "$dir" \
         -type f \
