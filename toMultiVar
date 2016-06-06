@@ -7,7 +7,7 @@ convertFile() {
     echo "→ Converting var declarations in: $file"
     vim -u "$SCRIPT_DIR/vimrc" \
         -e -s \
-        -S "$SCRIPT_DIR/autoload/toMultiVar.vim" \
+        -S "$SCRIPT_DIR/autoload/to_multi_var.vim" \
         +SingleToMultiVar \
         +update \
         +q \

@@ -2,7 +2,7 @@
 " Example on how to map it (also on the README):
 " ==============================================
 
-" autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>; :call toMultiVar#singleToMultiVar()<CR>
+" autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>; :call to_multi_var#singleToMultiVar()<CR>
 
 " ------------
 " Assumptions:
@@ -18,7 +18,7 @@ let s:closingDelimiter = '[)\]}]'
 let s:openingDelimiter = '[(\[{]'
 let s:openingDelimiterWithOptionalLineComment = s:openingDelimiter . s:optionalLineComment
 
-fun! toMultiVar#singleToMultiVar()
+fun! to_multi_var#singleToMultiVar()
     let b:originalCursorPosition = getpos('.')
 
     norm! G
@@ -105,4 +105,4 @@ fun! s:reindentLine()
     norm! ==
 endf
 
-command! SingleToMultiVar call toMultiVar#singleToMultiVar()
+command! SingleToMultiVar call to_multi_var#singleToMultiVar()
