@@ -5,7 +5,9 @@ readonly ROOT_DIRECTORY
 
 main() {
     for file in "$@"; do
-        if [ -n "${file}" ] && [ -f "${file}" ]; then
+        [ -z "${file}" ] && continue
+
+        if [ -f "${file}" ]; then
             convert_file "${file}"
         elif [ -d "${file}" ]; then
             convert_directory "${file}"
