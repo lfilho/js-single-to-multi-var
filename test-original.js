@@ -57,11 +57,16 @@ function testing() {
 // The following is not supported yet:
 var a, b;
 
-// TODO
-// The following is not supported yet:
+//////////////////////////////////
+// Stuff with line comments after:
+//////////////////////////////////
+
 var a = 'comment to follow', // this is a comment
     b = 2, // no shit, sherlock
-    c; // oh yeah
+    c = { // yow
+        k: 10
+    },
+    d; // oh yeah
 
 // Sanity check: just to make sure this won't be touched:
 function bogus(arg) {

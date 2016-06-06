@@ -72,13 +72,16 @@ For more examples of the cases it covers or not, take a look at the `test-*` fil
   var c;
   var d;
   ```
-- **Blocks (functions, object, arrays) should have their openings brackets as the line's last char**
+- **Blocks (functions, object, arrays) should have their openings brackets as the line's last char**. Comments are fine, though.
 
   ```javascript
   var a = function(b, c) {
           //...
       },
-      d;
+      d = { // This is fine
+          a: b
+      },
+      e;
   ```
 - **Var declarations must be in  "comma last" style (commas are at the end of the line instead of in the beggining)**
 
@@ -95,13 +98,6 @@ For more examples of the cases it covers or not, take a look at the `test-*` fil
   var a
      ,b
      ,c;
-  ```
-- **No comments after var declarations (in the same line)**
-
-  ```javascript
-  var a,
-      b, // With this comment, it won't work
-      c;
   ```
 
 Contributions in supporting those edge cases above are very welcome.

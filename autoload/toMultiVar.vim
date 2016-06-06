@@ -8,10 +8,15 @@
 " Assumptions:
 " - One variable per line
 " - Blocks (functions, object, arrays) should have their openings brackets
-"   as the line's last char
+"   as the line's last char (line comments are ok)
 " - "Comma last" style (commas are at the end of the line instead of in the
 "   beggining
-" - No comments after var declarations (in the same line)
+
+let s:lineComment = '\(\s*\/\/.*\)'
+let s:optionalLineComment = s:lineComment.'\?'
+let s:closingDelimiter = '[)\]}]'
+let s:openingDelimiter = '[(\[{]'
+let s:openingDelimiterWithOptionalLineComment = s:openingDelimiter . s:optionalLineComment
 
 fun! toMultiVar#singleToMultiVar()
     let b:originalCursorPosition = getpos('.')
@@ -25,7 +30,7 @@ fun! toMultiVar#singleToMultiVar()
 endfun
 
 fun! s:hasMultilineVar()
-    return search('^\s*var.\+,$', 'bW') > 0
+    return search('^\s*var.\+,'.s:optionalLineComment.'$', 'bW') > 0
 endf
 
 " The real magic:
@@ -38,27 +43,35 @@ fun! s:convertDeclarationBlock()
         let b:currentLine = s:getCurrentLine()
     endif
 
-    if s:endsWith(';')
-        if !s:startsWith('var') && !s:startsWith('[)\]}]')
+    if s:endsWith(';'.s:optionalLineComment)
+        if !s:startsWith('var') && !s:startsWith(s:closingDelimiter)
             call s:prependVar()
         endif
 
         return
     endif
 
-    if s:endsWith('[(\[{]')
-        if !s:startsWith('var') && !s:startsWith('[)\]}]')
+    if s:endsWith(s:openingDelimiterWithOptionalLineComment)
+        if !s:startsWith('var') && !s:startsWith(s:closingDelimiter)
             call s:prependVar()
         endif
 
         " Realigns block and go to its ending line:
-        norm! $=%$%
+        norm! $
+        if s:endsWith(s:lineComment)
+            call search(s:openingDelimiterWithOptionalLineComment, 'bc')
+            norm! =%$
+            call search(s:openingDelimiterWithOptionalLineComment, 'bc')
+        else
+            norm! =%$
+        endif
+        norm! %
     endif
 
-    if s:endsWith(',')
-        exec 's/,$/;/e'
+    if s:endsWith(','.s:optionalLineComment)
+        exec 's#,'.s:optionalLineComment.'$#;\1#e'
 
-        if !s:startsWith('[)\]}]') && !s:startsWith('var')
+        if !s:startsWith(s:closingDelimiter) && !s:startsWith('var')
             call s:prependVar()
         endif
         norm! j
