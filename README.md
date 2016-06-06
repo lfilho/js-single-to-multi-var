@@ -214,11 +214,13 @@ After installing it, you can use it by:
 
 This script/plugin was tested on:
 
-| OS    | Vim version                                               |
-| ----- | --------------------------------------------------------- |
-| Linux | 7.4 patches: 1-1817 (always the last vim version, via CI) |
-| OSX   | 7.4 patches: 1-969 (Homebrew's MacVim)                    |
-| OSX   | 7.4 patches: 1-1655 (Homebrew's MacVim)                   |
+| OS    | Vim version                                                    |
+| ----- | -------------------------------------------------------------- |
+| Linux | 7.4 patches 1-1817 (always the lastest Homebrew's Vim, via CI) |
+| OSX   | 7.4 patches 1-969 (Homebrew's MacVim)                          |
+| OSX   | 7.4 patches 1-1655 (Homebrew's MacVim)                         |
+| OSX   | 7.4 patches 1-1707 (Homebrew's MacVim)                         |
+| OSX   | 7.4 patches 1-1831 (Homebrew's MacVim)                         |
 
 For more information on how testing is done, see the [test file](test).
 
