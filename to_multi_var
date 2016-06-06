@@ -6,28 +6,28 @@ readonly SCRIPT_DIR
 convert_file() {
     local file=$@
 
-    echo "→ Converting var declarations in: $file"
-    vim -u "$SCRIPT_DIR/vimrc" \
+    echo "→ Converting var declarations in: ${file}"
+    vim -u "${SCRIPT_DIR}/vimrc" \
         -e -s \
-        -S "$SCRIPT_DIR/autoload/to_multi_var.vim" \
+        -S "${SCRIPT_DIR}/autoload/to_multi_var.vim" \
         +SingleToMultiVar \
         +update \
         +q \
-        "$file"
+        "${file}"
 }
 
 convert_directory() {
     local dir=$@
     local file
 
-    echo "Recursing in the directory: $dir"
-    find "$dir" \
+    echo "Recursing in the directory: ${dir}"
+    find "${dir}" \
         -type f \
         -not -path "*/node_modules/*" \
         -not -path "*/vendor/*" \
         -iregex ".*\.js$" \
     | while read file; do
-        convert_file $file
+        convert_file "${file}"
     done
 }
 
