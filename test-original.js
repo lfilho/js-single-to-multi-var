@@ -61,7 +61,7 @@ var a, b;
 // The following is not supported yet:
 var a = 'comment to follow', // this is a comment
     b = 2, // no shit, sherlock
-    c;
+    c; // oh yeah
 
 // Sanity check: just to make sure this won't be touched:
 function bogus(arg) {
