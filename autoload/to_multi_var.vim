@@ -18,28 +18,28 @@ let s:closing_delimiter = '[)\]}]'
 let s:opening_delimiter = '[(\[{]'
 let s:opening_delimiter_with_optional_line_comment = s:opening_delimiter . s:optional_line_comment
 
-fun! to_multi_var#singleToMultiVar()
+function! to_multi_var#singleToMultiVar()
     let b:original_cursor_position = getpos('.')
 
-    norm! G
+    normal! G
     while s:hasMultilineVar()
         call s:convertDeclarationBlock()
     endwhile
 
     call setpos('.', b:original_cursor_position)
-endfun
+endfunction
 
-fun! s:hasMultilineVar()
+function! s:hasMultilineVar()
     return search('^\s*var.\+,'.s:optional_line_comment.'$', 'bW') > 0
-endf
+endfunction
 
 " The real magic:
-fun! s:convertDeclarationBlock()
+function! s:convertDeclarationBlock()
     let b:current_line = s:getCurrentLine()
 
     if s:startsWith('//')
         call s:reindentLine()
-        norm! j
+        normal! j
         let b:current_line = s:getCurrentLine()
     endif
 
@@ -57,15 +57,15 @@ fun! s:convertDeclarationBlock()
         endif
 
         " Realigns block and go to its ending line:
-        norm! $
+        normal! $
         if s:endsWith(s:line_comment)
             call search(s:opening_delimiter_with_optional_line_comment, 'bc')
-            norm! =%$
+            normal! =%$
             call search(s:opening_delimiter_with_optional_line_comment, 'bc')
         else
-            norm! =%$
+            normal! =%$
         endif
-        norm! %
+        normal! %
     endif
 
     if s:endsWith(','.s:optional_line_comment)
@@ -74,35 +74,35 @@ fun! s:convertDeclarationBlock()
         if !s:startsWith(s:closing_delimiter) && !s:startsWith('var')
             call s:prependVar()
         endif
-        norm! j
+        normal! j
     endif
 
     return s:convertDeclarationBlock()
-endf
+endfunction
 
-fun! s:getCurrentLine()
+function! s:getCurrentLine()
     return s:strip(getline('.'))
-endf
+endfunction
 
-fun! s:strip(string)
+function! s:strip(string)
     return substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', '')
 endfunction
 
-fun! s:endsWith(string)
+function! s:endsWith(string)
     return b:current_line =~ a:string.'$'
-endf
+endfunction
 
-fun! s:startsWith(string)
+function! s:startsWith(string)
     return b:current_line =~ '^'.a:string
-endf
+endfunction
 
-fun! s:prependVar()
-    norm! Ivar 
+function! s:prependVar()
+    normal! Ivar 
     call s:reindentLine()
-endf
+endfunction
 
-fun! s:reindentLine()
-    norm! ==
-endf
+function! s:reindentLine()
+    normal! ==
+endfunction
 
 command! SingleToMultiVar call to_multi_var#singleToMultiVar()
