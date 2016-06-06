@@ -3,6 +3,24 @@
 ROOT_DIRECTORY="$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )"
 readonly ROOT_DIRECTORY
 
+main() {
+    # If no arg passed, recurse current dir:
+    if [ $# = 0 ]; then
+        convert_directory .
+        return
+    fi
+
+    # Accepts multiple args, both files or directories:
+    while [[ $# > 0 ]]; do
+        if [ -n "$1" ] && [ -f "$1" ]; then
+            convert_file "$1"
+        elif [ -d "$1" ]; then
+            convert_directory "$1"
+        fi
+        shift
+    done
+}
+
 convert_file() {
     local file=$@
 
@@ -31,20 +49,4 @@ convert_directory() {
     done
 }
 
-# If no arg passed, recurse current dir:
-if [ $# = 0 ]; then
-    convert_directory .
-    exit 0
-fi
-
-# Accepts multiple args, both files or directories:
-while [[ $# > 0 ]]; do
-    if [ -n "$1" ] && [ -f "$1" ]; then
-        convert_file "$1"
-    elif [ -d "$1" ]; then
-        convert_directory "$1"
-    fi
-    shift
-done
-
-exit 0
+main "$@"
