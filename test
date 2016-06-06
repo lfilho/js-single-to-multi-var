@@ -1,23 +1,29 @@
 #!/usr/bin/env bash
 
-goodFile='./test-good.js'
-orignalFile='./test-original.js'
-tempFile='./test-temp.js'
+set -euo pipefail
 
-cp "$orignalFile" "$tempFile"
+ROOT_DIRECTORY="$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )"
+readonly ROOT_DIRECTORY
 
-./to_multi_var "$tempFile"
+cd "${ROOT_DIRECTORY}"
 
-diff "$tempFile" "$goodFile"
-hasDifference=$?
+GOOD_FILE='./test-good.js'
+ORIGINAL_FILE='./test-original.js'
+TEMPORARY_FILE="$(mktemp "/tmp/temp.XXX.js")"
+TEST_RESULT=0
 
-if [ $hasDifference -eq 0 ]; then
+cp "${ORIGINAL_FILE}" "${TEMPORARY_FILE}"
+
+./to_multi_var "${TEMPORARY_FILE}"
+
+if diff "${TEMPORARY_FILE}" "${GOOD_FILE}"; then
     echo '✓ TEST PASSED! File contents matched.'
 else
     echo
     echo "✗ TEST FAILED! See contents' difference above."
+    test_result=1
 fi
 
-rm "$tempFile"
+rm "${TEMPORARY_FILE}"
 
-exit $hasDifference
+exit "${TEST_RESULT}"
