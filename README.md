@@ -125,23 +125,23 @@ Contributions in supporting those edge cases above are very welcome.
 You can call the script by running:
 
 ```shell
-<path-where-you-downloaded-it>/toMultiVar [arguments]
+<path-where-you-downloaded-it>/to_multi_var [arguments]
 ```
 
 For example:
 
 ```shell
-/Users/lfilho/workspace/js-single-to-multi-var/toMultiVar [arguments]
+/Users/lfilho/workspace/js-single-to-multi-var/to_multi_var [arguments]
 ```
 
-For the next examples in this file we'll just use `toMultiVar` for short.
+For the next examples in this file we'll just use `to_multi_var` for short.
 
 #### Arguments
 
 - **No arguments**
 
   ```shell
-  toMultiVar
+  to_multi_var
   ```
 
   Will recurse in all `*.js` files in the current directory
@@ -175,7 +175,7 @@ For the next examples in this file we'll just use `toMultiVar` for short.
   You'd run:
 
   ```shell
-  toMultiVar file7.js folderC/file5.js folderB
+  to_multi_var file7.js folderC/file5.js folderB
   ```
 
   Arguments order doesn't matter.

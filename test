@@ -6,7 +6,7 @@ tempFile='./test-temp.js'
 
 cp "$orignalFile" "$tempFile"
 
-./toMultiVar "$tempFile"
+./to_multi_var "$tempFile"
 
 diff "$tempFile" "$goodFile"
 hasDifference=$?
