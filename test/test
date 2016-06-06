@@ -2,13 +2,15 @@
 
 set -euo pipefail
 
-ROOT_DIRECTORY="$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )"
+TEST_DIRECTORY="$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )"
+readonly TEST_DIRECTORY
+ROOT_DIRECTORY="$( dirname "${TEST_DIRECTORY}" )"
 readonly ROOT_DIRECTORY
 
 cd "${ROOT_DIRECTORY}"
 
-GOOD_FILE='./test-good.js'
-ORIGINAL_FILE='./test-original.js'
+GOOD_FILE="${TEST_DIRECTORY}/test-good.js"
+ORIGINAL_FILE="${TEST_DIRECTORY}/test-original.js"
 TEMPORARY_FILE="$(mktemp "/tmp/temp.XXX.js")"
 TEST_RESULT=0
 

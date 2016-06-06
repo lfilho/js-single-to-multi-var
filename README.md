@@ -51,7 +51,7 @@ var e;
 
 **Note that** it also adjusts the indentation accordingly. If you see your indentation messed up, you probably have different settings that the plugin's default - take a look at the [`vimrc`](vimrc) in use and adjust it to your taste.
 
-For more examples of the cases it covers or not, take a look at the `test-*` files to see what and how it will convert.
+For more examples of the cases it covers or not, take a look at the `test/test-*` files to see what and how it will convert.
 
 <a name="Assumptions_Caveats">
 ## Assumptions / Caveats
@@ -218,7 +218,7 @@ This script/plugin was tested on:
 | OSX   | 7.4 patches 1-1707 (Homebrew's MacVim)                         |
 | OSX   | 7.4 patches 1-1831 (Homebrew's MacVim)                         |
 
-For more information on how testing is done, see the [test file](test).
+For more information on how testing is done, see the [test file](test/test).
 
 <a name="Acknowledgments">
 ## Acknowledgments
