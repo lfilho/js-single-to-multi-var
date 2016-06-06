@@ -12,66 +12,66 @@
 " - "Comma last" style (commas are at the end of the line instead of in the
 "   beggining
 
-let s:lineComment = '\(\s*\/\/.*\)'
-let s:optionalLineComment = s:lineComment.'\?'
-let s:closingDelimiter = '[)\]}]'
-let s:openingDelimiter = '[(\[{]'
-let s:openingDelimiterWithOptionalLineComment = s:openingDelimiter . s:optionalLineComment
+let s:line_comment = '\(\s*\/\/.*\)'
+let s:optional_line_comment = s:line_comment.'\?'
+let s:closing_delimiter = '[)\]}]'
+let s:opening_delimiter = '[(\[{]'
+let s:opening_delimiter_with_optional_line_comment = s:opening_delimiter . s:optional_line_comment
 
 fun! to_multi_var#singleToMultiVar()
-    let b:originalCursorPosition = getpos('.')
+    let b:original_cursor_position = getpos('.')
 
     norm! G
     while s:hasMultilineVar()
         call s:convertDeclarationBlock()
     endwhile
 
-    call setpos('.', b:originalCursorPosition)
+    call setpos('.', b:original_cursor_position)
 endfun
 
 fun! s:hasMultilineVar()
-    return search('^\s*var.\+,'.s:optionalLineComment.'$', 'bW') > 0
+    return search('^\s*var.\+,'.s:optional_line_comment.'$', 'bW') > 0
 endf
 
 " The real magic:
 fun! s:convertDeclarationBlock()
-    let b:currentLine = s:getCurrentLine()
+    let b:current_line = s:getCurrentLine()
 
     if s:startsWith('//')
         call s:reindentLine()
         norm! j
-        let b:currentLine = s:getCurrentLine()
+        let b:current_line = s:getCurrentLine()
     endif
 
-    if s:endsWith(';'.s:optionalLineComment)
-        if !s:startsWith('var') && !s:startsWith(s:closingDelimiter)
+    if s:endsWith(';'.s:optional_line_comment)
+        if !s:startsWith('var') && !s:startsWith(s:closing_delimiter)
             call s:prependVar()
         endif
 
         return
     endif
 
-    if s:endsWith(s:openingDelimiterWithOptionalLineComment)
-        if !s:startsWith('var') && !s:startsWith(s:closingDelimiter)
+    if s:endsWith(s:opening_delimiter_with_optional_line_comment)
+        if !s:startsWith('var') && !s:startsWith(s:closing_delimiter)
             call s:prependVar()
         endif
 
         " Realigns block and go to its ending line:
         norm! $
-        if s:endsWith(s:lineComment)
-            call search(s:openingDelimiterWithOptionalLineComment, 'bc')
+        if s:endsWith(s:line_comment)
+            call search(s:opening_delimiter_with_optional_line_comment, 'bc')
             norm! =%$
-            call search(s:openingDelimiterWithOptionalLineComment, 'bc')
+            call search(s:opening_delimiter_with_optional_line_comment, 'bc')
         else
             norm! =%$
         endif
         norm! %
     endif
 
-    if s:endsWith(','.s:optionalLineComment)
-        exec 's#,'.s:optionalLineComment.'$#;\1#e'
+    if s:endsWith(','.s:optional_line_comment)
+        exec 's#,'.s:optional_line_comment.'$#;\1#e'
 
-        if !s:startsWith(s:closingDelimiter) && !s:startsWith('var')
+        if !s:startsWith(s:closing_delimiter) && !s:startsWith('var')
             call s:prependVar()
         endif
         norm! j
@@ -89,11 +89,11 @@ fun! s:strip(string)
 endfunction
 
 fun! s:endsWith(string)
-    return b:currentLine =~ a:string.'$'
+    return b:current_line =~ a:string.'$'
 endf
 
 fun! s:startsWith(string)
-    return b:currentLine =~ '^'.a:string
+    return b:current_line =~ '^'.a:string
 endf
 
 fun! s:prependVar()
