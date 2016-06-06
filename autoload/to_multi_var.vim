@@ -2,7 +2,7 @@
 " Example on how to map it (also on the README):
 " ==============================================
 
-" autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>; :call to_multi_var#singleToMultiVar()<CR>
+" autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>; :call to_multi_var#single_to_multi_var()<CR>
 
 " ------------
 " Assumptions:
@@ -18,47 +18,47 @@ let s:closing_delimiter = '[)\]}]'
 let s:opening_delimiter = '[(\[{]'
 let s:opening_delimiter_with_optional_line_comment = s:opening_delimiter . s:optional_line_comment
 
-function! to_multi_var#singleToMultiVar() abort
+function! to_multi_var#single_to_multi_var() abort
     let b:original_cursor_position = getpos('.')
 
     normal! G
-    while s:hasMultilineVar()
-        call s:convertDeclarationBlock()
+    while s:has_multiline_var()
+        call s:convert_declaration_block()
     endwhile
 
     call setpos('.', b:original_cursor_position)
 endfunction
 
-function! s:hasMultilineVar() abort
+function! s:has_multiline_var() abort
     return search('^\s*var.\+,'.s:optional_line_comment.'$', 'bW') > 0
 endfunction
 
 " The real magic:
-function! s:convertDeclarationBlock() abort
-    let b:current_line = s:getCurrentLine()
+function! s:convert_declaration_block() abort
+    let b:current_line = s:get_current_line()
 
-    if s:startsWith('//')
-        call s:reindentLine()
+    if s:starts_with('//')
+        call s:reindent_line()
         normal! j
-        let b:current_line = s:getCurrentLine()
+        let b:current_line = s:get_current_line()
     endif
 
-    if s:endsWith(';'.s:optional_line_comment)
-        if !s:startsWith('var') && !s:startsWith(s:closing_delimiter)
-            call s:prependVar()
+    if s:ends_with(';'.s:optional_line_comment)
+        if !s:starts_with('var') && !s:starts_with(s:closing_delimiter)
+            call s:prepend_var()
         endif
 
         return
     endif
 
-    if s:endsWith(s:opening_delimiter_with_optional_line_comment)
-        if !s:startsWith('var') && !s:startsWith(s:closing_delimiter)
-            call s:prependVar()
+    if s:ends_with(s:opening_delimiter_with_optional_line_comment)
+        if !s:starts_with('var') && !s:starts_with(s:closing_delimiter)
+            call s:prepend_var()
         endif
 
         " Realigns block and go to its ending line:
         normal! $
-        if s:endsWith(s:line_comment)
+        if s:ends_with(s:line_comment)
             call search(s:opening_delimiter_with_optional_line_comment, 'bc')
             normal! =%$
             call search(s:opening_delimiter_with_optional_line_comment, 'bc')
@@ -68,19 +68,19 @@ function! s:convertDeclarationBlock() abort
         normal! %
     endif
 
-    if s:endsWith(','.s:optional_line_comment)
+    if s:ends_with(','.s:optional_line_comment)
         exec 's#,'.s:optional_line_comment.'$#;\1#e'
 
-        if !s:startsWith(s:closing_delimiter) && !s:startsWith('var')
-            call s:prependVar()
+        if !s:starts_with(s:closing_delimiter) && !s:starts_with('var')
+            call s:prepend_var()
         endif
         normal! j
     endif
 
-    return s:convertDeclarationBlock()
+    return s:convert_declaration_block()
 endfunction
 
-function! s:getCurrentLine() abort
+function! s:get_current_line() abort
     return s:strip(getline('.'))
 endfunction
 
@@ -88,21 +88,21 @@ function! s:strip(string) abort
     return substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', '')
 endfunction
 
-function! s:endsWith(string) abort
+function! s:ends_with(string) abort
     return b:current_line =~ a:string.'$'
 endfunction
 
-function! s:startsWith(string) abort
+function! s:starts_with(string) abort
     return b:current_line =~ '^'.a:string
 endfunction
 
-function! s:prependVar() abort
+function! s:prepend_var() abort
     normal! Ivar 
-    call s:reindentLine()
+    call s:reindent_line()
 endfunction
 
-function! s:reindentLine() abort
+function! s:reindent_line() abort
     normal! ==
 endfunction
 
-command! SingleToMultiVar call to_multi_var#singleToMultiVar()
+command! SingleToMultiVar call to_multi_var#single_to_multi_var()

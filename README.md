@@ -187,12 +187,12 @@ After installing it, you can use it by:
 1. Calling the plugin directly:
 
    ```
-   call to_multi_var#singleToMultiVar()
+   call to_multi_var#single_to_multi_var()
    ```
 2. Creating a command for later usage (put this somewhere in your vimrc):
 
    ```
-   command! SingleToMultiVar call to_multi_var#singleToMultiVar()
+   command! SingleToMultiVar call to_multi_var#single_to_multi_var()
    ```
    And then invoking it like so:
 
@@ -202,7 +202,7 @@ After installing it, you can use it by:
 3. Mapping it to a key combination (let's say `<leader>v`):
 
    ```
-   autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call to_multi_var#singleToMultiVar()<CR>
+   autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call to_multi_var#single_to_multi_var()<CR>
    ```
 
 <a name="Tests">
