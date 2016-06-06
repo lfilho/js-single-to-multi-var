@@ -68,7 +68,7 @@ fun! s:convertDeclarationBlock()
 endf
 
 fun! s:getCurrentLine()
-    return s:strip(getline(line('.')))
+    return s:strip(getline('.'))
 endf
 
 fun! s:strip(string)
@@ -84,7 +84,7 @@ fun! s:startsWith(string)
 endf
 
 fun! s:prependVar()
-    norm! ^ivar 
+    norm! Ivar 
     call s:reindentLine()
 endf
 
