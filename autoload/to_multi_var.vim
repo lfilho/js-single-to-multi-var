@@ -18,7 +18,7 @@ let s:closing_delimiter = '[)\]}]'
 let s:opening_delimiter = '[(\[{]'
 let s:opening_delimiter_with_optional_line_comment = s:opening_delimiter . s:optional_line_comment
 
-function! to_multi_var#singleToMultiVar()
+function! to_multi_var#singleToMultiVar() abort
     let b:original_cursor_position = getpos('.')
 
     normal! G
@@ -29,12 +29,12 @@ function! to_multi_var#singleToMultiVar()
     call setpos('.', b:original_cursor_position)
 endfunction
 
-function! s:hasMultilineVar()
+function! s:hasMultilineVar() abort
     return search('^\s*var.\+,'.s:optional_line_comment.'$', 'bW') > 0
 endfunction
 
 " The real magic:
-function! s:convertDeclarationBlock()
+function! s:convertDeclarationBlock() abort
     let b:current_line = s:getCurrentLine()
 
     if s:startsWith('//')
@@ -80,28 +80,28 @@ function! s:convertDeclarationBlock()
     return s:convertDeclarationBlock()
 endfunction
 
-function! s:getCurrentLine()
+function! s:getCurrentLine() abort
     return s:strip(getline('.'))
 endfunction
 
-function! s:strip(string)
+function! s:strip(string) abort
     return substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', '')
 endfunction
 
-function! s:endsWith(string)
+function! s:endsWith(string) abort
     return b:current_line =~ a:string.'$'
 endfunction
 
-function! s:startsWith(string)
+function! s:startsWith(string) abort
     return b:current_line =~ '^'.a:string
 endfunction
 
-function! s:prependVar()
+function! s:prependVar() abort
     normal! Ivar 
     call s:reindentLine()
 endfunction
 
-function! s:reindentLine()
+function! s:reindentLine() abort
     normal! ==
 endfunction
 
