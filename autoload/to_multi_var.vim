@@ -19,14 +19,14 @@ let s:opening_delimiter = '[(\[{]'
 let s:opening_delimiter_with_optional_line_comment = s:opening_delimiter . s:optional_line_comment
 
 function! to_multi_var#single_to_multi_var() abort
-    let b:original_cursor_position = getpos('.')
+    let s:original_cursor_position = getpos('.')
 
     normal! G
     while s:has_multiline_var()
         call s:convert_declaration_block()
     endwhile
 
-    call setpos('.', b:original_cursor_position)
+    call setpos('.', s:original_cursor_position)
 endfunction
 
 function! s:has_multiline_var() abort
@@ -35,12 +35,12 @@ endfunction
 
 " The real magic:
 function! s:convert_declaration_block() abort
-    let b:current_line = s:get_current_line()
+    let s:current_line = s:get_current_line()
 
     if s:starts_with('//')
         call s:reindent_line()
         normal! j
-        let b:current_line = s:get_current_line()
+        let s:current_line = s:get_current_line()
     endif
 
     if s:ends_with(';'.s:optional_line_comment)
@@ -89,11 +89,11 @@ function! s:strip(string) abort
 endfunction
 
 function! s:ends_with(string) abort
-    return b:current_line =~ a:string.'$'
+    return s:current_line =~ a:string.'$'
 endfunction
 
 function! s:starts_with(string) abort
-    return b:current_line =~ '^'.a:string
+    return s:current_line =~ '^'.a:string
 endfunction
 
 function! s:prepend_var() abort
