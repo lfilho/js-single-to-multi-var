@@ -56,6 +56,9 @@ function testing() {
 // TODO
 // The following is not supported yet:
 var a, b;
+var a = 1, b = '', c = 'comma, here', d;
+var a = 1, b = 5/3, c = 'comma, here', d;
+var a = 1, b = 5/3, c = 'comma, here', d; // with comment after
 
 //////////////////////////////////
 // Stuff with line comments after:
