@@ -23,7 +23,7 @@ if diff "${TEMPORARY_FILE}" "${GOOD_FILE}"; then
 else
     echo
     echo "✗ TEST FAILED! See contents' difference above."
-    test_result=1
+    TEST_RESULT=1
 fi
 
 rm "${TEMPORARY_FILE}"
