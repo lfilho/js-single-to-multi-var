@@ -53,12 +53,24 @@ function testing() {
     */
 }
 
-// TODO
-// The following is not supported yet:
-var a, b;
-var a = 1, b = '', c = 'comma, here', d;
-var a = 1, b = 5/3, c = 'comma, here', d;
-var a = 1, b = 5/3, c = 'comma, here', d; // with comment after
+/////////////////////////////////
+// Multi declaration in one line:
+/////////////////////////////////
+
+var a;
+var b;
+var a = 1;
+var b = '';
+var c = 'comma, here';
+var d;
+var a = 1;
+var b = 5/3;
+var c = 'comma, here';
+var d;
+var a = 1;
+var b = 5/3;
+var c = 'comma, here';
+var d; // with comment after
 
 //////////////////////////////////
 // Stuff with line comments after:
@@ -70,6 +82,16 @@ var c = { // yow
     k: 10
 };
 var d; // oh yeah
+
+////////////////////
+// Arguments commas:
+////////////////////
+
+var logFile = path.resolve(__dirname, '../tests.log');
+var logFile2 = path.resolve(__dirname2, '../tests2.log');
+var test;
+var oi;
+var combinedSettings = _.extend({}, getValues(), {}, originalSettings);
 
 // Sanity check: just to make sure this won't be touched:
 function bogus(arg) {

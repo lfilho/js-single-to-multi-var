@@ -22,7 +22,7 @@ convert_file() {
 
     echo "→ Converting var declarations in: ${file}"
     vim -u "${ROOT_DIRECTORY}/vimrc"                     \
-        -es --noplugin                                   \
+        -esn --noplugin                                  \
         -S "${ROOT_DIRECTORY}/autoload/to_multi_var.vim" \
         +SingleToMultiVar                                \
         +update                                          \
@@ -38,6 +38,7 @@ convert_directory() {
     find "${dir}"                     \
         -type f                       \
         -not -path "*/node_modules/*" \
+        -not -path "*/public/lib/*"   \
         -not -path "*/vendor/*"       \
         -iregex ".*\.js$"             \
     | while read file; do

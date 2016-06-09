@@ -18,29 +18,70 @@ let s:closing_delimiter = '[)\]}]'
 let s:opening_delimiter = '[(\[{]'
 let s:opening_delimiter_with_optional_line_comment = s:opening_delimiter . s:optional_line_comment
 
-function! to_multi_var#single_to_multi_var() abort
-    let s:original_cursor_position = getpos('.')
+function! to_multi_var#single_to_multi_var()
+    call s:make_one_declaration_per_line()
+    call s:make_one_var_per_declaration()
+endfunction
+
+function! s:make_one_declaration_per_line()
+    let b:original_cursor_position = getpos('.')
+
+    normal! G$
+    while s:has_multiline_var()
+        let b:position_before_splitting = getpos('.')
+
+        while search(',\|'.s:opening_delimiter, '', line('.'))
+            if s:get_char_under_cursor() =~ s:opening_delimiter
+                normal! %
+                continue
+            endif
+
+            if s:count_occurences_from_cursor(',') == 1
+                if getline('.') =~ ';'.s:optional_line_comment.'$'
+                    normal! a==^
+                else
+                    normal! j^
+                endif
+            elseif s:get_token_under_cursor_syntax() !~ 'String\|Comment\|Constant'
+                if s:count_occurences_from_cursor(s:line_comment) == 1
+                    normal! l
+                    if s:count_occurences_from_cursor(',.*'.s:line_comment) > 0
+                        normal! ha==^
+                    endif
+                else
+                    normal! a==^
+                endif
+            endif
+        endwhile
+
+        call setpos('.', b:position_before_splitting)
+    endwhile
+
+    call setpos('.', b:original_cursor_position)
+endfunction
+
+function! s:make_one_var_per_declaration()
+    let b:original_cursor_position = getpos('.')
 
     normal! G
     while s:has_multiline_var()
         call s:convert_declaration_block()
     endwhile
 
-    call setpos('.', s:original_cursor_position)
+    call setpos('.', b:original_cursor_position)
 endfunction
 
-function! s:has_multiline_var() abort
-    return search('^\s*var.\+,'.s:optional_line_comment.'$', 'bW') > 0
+function! s:has_multiline_var()
+    return search('^\s*var.\+,\(.*;\)\?'.s:optional_line_comment.'$', 'bW') > 0
 endfunction
 
 " The real magic:
-function! s:convert_declaration_block() abort
-    let s:current_line = s:get_current_line()
+function! s:convert_declaration_block()
+    let b:current_line = s:get_current_line()
 
     if s:starts_with('//')
-        call s:reindent_line()
-        normal! j
-        let s:current_line = s:get_current_line()
+        normal! ==j
+        let b:current_line = s:get_current_line()
     endif
 
     if s:ends_with(';'.s:optional_line_comment)
@@ -80,29 +121,37 @@ function! s:convert_declaration_block() abort
     return s:convert_declaration_block()
 endfunction
 
-function! s:get_current_line() abort
+function! s:get_current_line()
     return s:strip(getline('.'))
 endfunction
 
-function! s:strip(string) abort
+function! s:strip(string)
     return substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', '')
 endfunction
 
-function! s:ends_with(string) abort
-    return s:current_line =~ a:string.'$'
+function! s:ends_with(string)
+    return b:current_line =~ a:string.'$'
 endfunction
 
-function! s:starts_with(string) abort
-    return s:current_line =~ '^'.a:string
+function! s:starts_with(string)
+    return b:current_line =~ '^'.a:string
 endfunction
 
-function! s:prepend_var() abort
-    normal! Ivar 
-    call s:reindent_line()
+function! s:prepend_var()
+    normal! Ivar ==
 endfunction
 
-function! s:reindent_line() abort
-    normal! ==
+function! s:count_occurences_from_cursor(string)
+    let subString = strpart(getline('.'), col('.')-1)
+    return len(split(subString, a:string, 1)) - 1
+endfunction
+
+function! s:get_char_under_cursor()
+    return matchstr(getline('.'), '\%' . col('.') . 'c.')
+endfunction
+
+function! s:get_token_under_cursor_syntax()
+    return synIDattr(synIDtrans(synID(line('.'), col('.'), 1)), 'name')
 endfunction
 
 command! SingleToMultiVar call to_multi_var#single_to_multi_var()
