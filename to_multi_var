@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ROOT_DIRECTORY="$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )"
+readonly ROOT_DIRECTORY
+
+main() {
+    for file in "$@"; do
+        [ -z "${file}" ] && continue
+
+        if [ -f "${file}" ]; then
+            convert_file "${file}"
+        elif [ -d "${file}" ]; then
+            convert_directory "${file}"
+        fi
+    done
+}
+
+convert_file() {
+    local file=$@
+
+    echo "→ Converting var declarations in: ${file}"
+    vim -u "${ROOT_DIRECTORY}/vimrc"                     \
+        -e -s                                            \
+        -S "${ROOT_DIRECTORY}/autoload/to_multi_var.vim" \
+        +SingleToMultiVar                                \
+        +update                                          \
+        +q                                               \
+        "${file}"
+}
+
+convert_directory() {
+    local dir=$@
+    local file
+
+    echo "Recursing in the directory: ${dir}"
+    find "${dir}"                     \
+        -type f                       \
+        -not -path "*/node_modules/*" \
+        -not -path "*/vendor/*"       \
+        -iregex ".*\.js$"             \
+    | while read file; do
+        convert_file "${file}"
+    done
+}
+
+main "${@:-.}"

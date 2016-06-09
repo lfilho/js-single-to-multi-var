@@ -15,4 +15,4 @@ machine:
 
 test:
   override:
-    - bash -xe ./test
+    - bash -xe ./test/test
