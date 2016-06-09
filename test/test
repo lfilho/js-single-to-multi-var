@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+TEST_DIRECTORY="$( dirname "$( readlink -f "${BASH_SOURCE[0]}" )" )"
+readonly TEST_DIRECTORY
+ROOT_DIRECTORY="$( dirname "${TEST_DIRECTORY}" )"
+readonly ROOT_DIRECTORY
+
+cd "${ROOT_DIRECTORY}"
+
+GOOD_FILE="${TEST_DIRECTORY}/test-good.js"
+ORIGINAL_FILE="${TEST_DIRECTORY}/test-original.js"
+TEMPORARY_FILE="$(mktemp "/tmp/temp.XXX.js")"
+TEST_RESULT=0
+
+cp "${ORIGINAL_FILE}" "${TEMPORARY_FILE}"
+
+./to_multi_var "${TEMPORARY_FILE}"
+
+if diff "${TEMPORARY_FILE}" "${GOOD_FILE}"; then
+    echo '✓ TEST PASSED! File contents matched.'
+else
+    echo
+    echo "✗ TEST FAILED! See contents' difference above."
+    test_result=1
+fi
+
+rm "${TEMPORARY_FILE}"
+
+exit "${TEST_RESULT}"

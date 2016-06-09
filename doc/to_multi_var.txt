@@ -1,0 +1,130 @@
+to_multi_var.txt to-multi-var js-single-to-multi-var
+JAVASCRIPT SINGLE TO MULTIPLE VAR                               *to-multi-var*
+==============================================================================
+
+This script / plugins comes to rescue of the unfortunate people that need to convert things like:
+
+>
+    var a,
+        b = 2,
+        c = function() {
+            var x,
+                z;
+            //...
+        },
+        d = {
+           //...
+        },
+        e;
+<
+
+to
+
+>
+    var a;
+    var b = 2;
+    var c = function() {
+       var x,
+       var z;
+       //...
+    };
+    var d = {
+       //...
+    };
+    var e;
+<
+
+This adjusts the indentation accordingly.
+
+If you see your indentation messed up, you probably have different settings
+than the plugin is expecting.
+
+The tests use specific vim settings which are in the root of the plugin.
+
+For more examples of the cases it does and does not cover, take a look at the
+`test-*` files to see what and how it will convert.
+
+USAGE                                                      *:SingleToMultiVar*
+==============================================================================
+
+You can call the plugin directly:
+
+
+>
+   call to_multi_var#single_to_multi_var()
+<
+
+You can create a command for the plugin:
+
+>
+   command! SingleToMultiVar call to_multi_var#single_to_multi_var()
+<
+
+And then invoke it like so:
+
+>
+   :SingleToMultiVar
+<
+
+This plugin already creates the :SingleToMultiVar command.
+
+You can map it to a key or combination of keys:
+
+>
+   autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call to_multi_var#single_to_multi_var()<CR>
+<
+
+ASSUMPTIONS AND CAVEATS
+==============================================================================
+
+One variable per line~
+
+This:
+
+>
+    var a, b,
+        c,
+        d;
+<
+
+Will become this:
+
+>
+    var a, b;
+    var c;
+    var d;
+<
+
+Blocks (functions, object, arrays) should have their openings brackets as the line's last char~
+
+>
+    var a = function(b, c) {
+            //...
+        },
+        d = { // This is fine
+            a: b
+        },
+        e;
+<
+
+Comments after the opening parenthesis are fine.
+
+Var declarations must be in  "comma last" style~
+
+Good:
+
+>
+    var a,
+        b,
+        c;
+<
+
+Bad:
+
+>
+    var a
+       ,b
+       ,c;
+<
+
+Commas should always be at the end of the line.

@@ -51,7 +51,7 @@ var e;
 
 **Note that** it also adjusts the indentation accordingly. If you see your indentation messed up, you probably have different settings that the plugin's default - take a look at the [`vimrc`](vimrc) in use and adjust it to your taste.
 
-For more examples of the cases it covers or not, take a look at the `test-*` files to see what and how it will convert.
+For more examples of the cases it covers or not, take a look at the `test/test-*` files to see what and how it will convert.
 
 <a name="Assumptions_Caveats">
 ## Assumptions / Caveats
@@ -125,23 +125,23 @@ Contributions in supporting those edge cases above are very welcome.
 You can call the script by running:
 
 ```shell
-<path-where-you-downloaded-it>/toMultiVar [arguments]
+<path-where-you-downloaded-it>/to_multi_var [arguments]
 ```
 
 For example:
 
 ```shell
-/Users/lfilho/workspace/js-single-to-multi-var/toMultiVar [arguments]
+/Users/lfilho/workspace/js-single-to-multi-var/to_multi_var [arguments]
 ```
 
-For the next examples in this file we'll just use `toMultiVar` for short.
+For the next examples in this file we'll just use `to_multi_var` for short.
 
 #### Arguments
 
 - **No arguments**
 
   ```shell
-  toMultiVar
+  to_multi_var
   ```
 
   Will recurse in all `*.js` files in the current directory
@@ -175,7 +175,7 @@ For the next examples in this file we'll just use `toMultiVar` for short.
   You'd run:
 
   ```shell
-  toMultiVar file7.js folderC/file5.js folderB
+  to_multi_var file7.js folderC/file5.js folderB
   ```
 
   Arguments order doesn't matter.
@@ -187,12 +187,12 @@ After installing it, you can use it by:
 1. Calling the plugin directly:
 
    ```
-   call toMultiVar#singleToMultiVar()
+   call to_multi_var#single_to_multi_var()
    ```
 2. Creating a command for later usage (put this somewhere in your vimrc):
 
    ```
-   command! SingleToMultiVar call toMultiVar#singleToMultiVar()
+   command! SingleToMultiVar call to_multi_var#single_to_multi_var()
    ```
    And then invoking it like so:
 
@@ -202,7 +202,7 @@ After installing it, you can use it by:
 3. Mapping it to a key combination (let's say `<leader>v`):
 
    ```
-   autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call toMultiVar#singleToMultiVar()<CR>
+   autocmd FileType js,javascript,javascript.jsx noremap <silent> <Leader>v :call to_multi_var#single_to_multi_var()<CR>
    ```
 
 <a name="Tests">
@@ -218,7 +218,7 @@ This script/plugin was tested on:
 | OSX   | 7.4 patches 1-1707 (Homebrew's MacVim)                         |
 | OSX   | 7.4 patches 1-1831 (Homebrew's MacVim)                         |
 
-For more information on how testing is done, see the [test file](test).
+For more information on how testing is done, see the [test file](test/test).
 
 <a name="Acknowledgments">
 ## Acknowledgments
