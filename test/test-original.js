@@ -57,11 +57,20 @@ function testing() {
 // Multi declaration in one line:
 /////////////////////////////////
 
-var a, b;
-var a = 1, b = '', c = 'comma, here', d;
-var a = 1, b = 5/3,
-    c = 'comma, here', d;
-var a = 1, b = 5/3, c = 'comma, here', d; // with comment after
+var a,
+    b;
+var a = 1,
+    b = '',
+    c = 'comma, here',
+    d;
+var a = 1,
+    b = 5/3,
+    c = 'comma, here',
+    d;
+var a = 1,
+    b = 5/3,
+    c = 'comma, here',
+    d; // with comment after
 
 //////////////////////////////////
 // Stuff with line comments after:
@@ -83,6 +92,24 @@ var logFile2 = path.resolve(__dirname2, '../tests2.log'),
     test;
 var oi,
     combinedSettings = _.extend({}, getValues(), {}, originalSettings);
+
+////////////
+// Chaining:
+////////////
+//TODO chaining is not yet supported
+// var views = this.getViews(),
+//     defaultViewKey = _(views).chain()
+//         .keys()
+//         .find(function(key) {
+//             return views[key].isDefault === true;
+//         })
+//         .value();
+//
+// var views = this.getViews(),
+//     defaultViewKey = _(views).chain()
+//         .keys()
+//         .value(),
+//     another = 42;
 
 // Sanity check: just to make sure this won't be touched:
 function bogus(arg) {
