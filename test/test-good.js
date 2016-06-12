@@ -96,20 +96,25 @@ var combinedSettings = _.extend({}, getValues(), {}, originalSettings);
 ////////////
 // Chaining:
 ////////////
-//TODO chaining is not yet supported
-// var views = this.getViews(),
-//     defaultViewKey = _(views).chain()
-//         .keys()
-//         .find(function(key) {
-//             return views[key].isDefault === true;
-//         })
-//         .value();
-//
-// var views = this.getViews(),
-//     defaultViewKey = _(views).chain()
-//         .keys()
-//         .value(),
-//     another = 42;
+var views = this.getViews();
+var chainOne = _(views).chain()
+    .keysOne()
+    .find(function(key) {
+        return views[key].isDefault === true;
+    })
+    .valueOne();
+
+var views = this.getViews();
+var chainTwo = _(views).chain()
+    .keysTwo()
+    .valueTwo();
+var anotherTwo = 42;
+
+// TODO this is not supported yet:
+var views = this.getViews(), chainThree = _(views).chain()
+        .keysThree()
+        .valueThree(),
+    anotherThree = 42;
 
 // Sanity check: just to make sure this won't be touched:
 function bogus(arg) {

@@ -22,7 +22,7 @@ convert_file() {
 
     echo "→ Converting var declarations in: ${file}"
     vim -u "${ROOT_DIRECTORY}/vimrc"                     \
-        -esn --noplugin                                  \
+        -Nesn --noplugin                                 \
         -S "${ROOT_DIRECTORY}/autoload/to_multi_var.vim" \
         +SingleToMultiVar                                \
         +update                                          \

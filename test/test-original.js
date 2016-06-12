@@ -57,20 +57,10 @@ function testing() {
 // Multi declaration in one line:
 /////////////////////////////////
 
-var a,
-    b;
-var a = 1,
-    b = '',
-    c = 'comma, here',
-    d;
-var a = 1,
-    b = 5/3,
-    c = 'comma, here',
-    d;
-var a = 1,
-    b = 5/3,
-    c = 'comma, here',
-    d; // with comment after
+var a, b;
+var a = 1, b = '', c = 'comma, here', d;
+var a = 1, b = 5/3, c = 'comma, here', d;
+var a = 1, b = 5/3, c = 'comma, here', d; // with comment after
 
 //////////////////////////////////
 // Stuff with line comments after:
@@ -96,20 +86,25 @@ var oi,
 ////////////
 // Chaining:
 ////////////
-//TODO chaining is not yet supported
-// var views = this.getViews(),
-//     defaultViewKey = _(views).chain()
-//         .keys()
-//         .find(function(key) {
-//             return views[key].isDefault === true;
-//         })
-//         .value();
-//
-// var views = this.getViews(),
-//     defaultViewKey = _(views).chain()
-//         .keys()
-//         .value(),
-//     another = 42;
+var views = this.getViews(),
+    chainOne = _(views).chain()
+        .keysOne()
+        .find(function(key) {
+            return views[key].isDefault === true;
+        })
+        .valueOne();
+
+var views = this.getViews(),
+    chainTwo = _(views).chain()
+        .keysTwo()
+        .valueTwo(),
+    anotherTwo = 42;
+
+// TODO this is not supported yet:
+var views = this.getViews(), chainThree = _(views).chain()
+        .keysThree()
+        .valueThree(),
+    anotherThree = 42;
 
 // Sanity check: just to make sure this won't be touched:
 function bogus(arg) {

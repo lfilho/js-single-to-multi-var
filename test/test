@@ -18,8 +18,8 @@ cp "${ORIGINAL_FILE}" "${TEMPORARY_FILE}"
 
 ./to_multi_var "${TEMPORARY_FILE}"
 
-if diff "${TEMPORARY_FILE}" "${GOOD_FILE}"; then
-    echo '✓ TEST PASSED! File contents matched.'
+if diff -w "${TEMPORARY_FILE}" "${GOOD_FILE}"; then
+    echo '✓ TEST PASSED! File contents matched. But whitespace was ignored.'
 else
     echo
     echo "✗ TEST FAILED! See contents' difference above."
