@@ -14,6 +14,7 @@ main() {
         elif [ -d "${file}" ]; then
             convert_directory "${file}"
         fi
+        echo '✓ All files converted.'
     done
 }
 
