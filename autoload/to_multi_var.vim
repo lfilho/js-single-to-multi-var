@@ -37,7 +37,7 @@ function! s:make_one_declaration_per_line()
             endif
 
             if s:count_occurences_from_cursor(',') == 1
-                if getline('.') =~ ';'.s:optional_line_comment.'$'
+                if getline('.') =~ ';'.s:optional_line_comment.'$' && s:get_token_under_cursor_syntax() !~ 'String\|Comment\|Constant'
                     normal! a==^
                 else
                     normal! j^

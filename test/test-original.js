@@ -53,6 +53,13 @@ function testing() {
     */
 }
 
+/////////////////////////
+// Commas inside strings:
+/////////////////////////
+
+var a = 1, b = '', c = 'comma, here', d;
+var view, spy, testMessage = 'last var with comma, dude';
+
 /////////////////////////////////
 // Multi declaration in one line:
 /////////////////////////////////
