@@ -62,6 +62,13 @@ function testing() {
 var a = 1, b = '', c = 'comma, here', d;
 var view, spy, testMessage = 'last var with comma, dude';
 
+//////////////////////
+// Ternary declarions:
+//////////////////////
+
+var b,
+    d = foo && foo[bar] ? bla[data] : '';
+
 /////////////////////////////////
 // Multi declaration in one line:
 /////////////////////////////////
@@ -109,12 +116,6 @@ var views = this.getViews(),
         .valueTwo(),
     anotherTwo = 42;
 
-// TODO this is not supported yet:
-var views = this.getViews(), chainThree = _(views).chain()
-        .keysThree()
-        .valueThree(),
-    anotherThree = 42;
-
 // Sanity check: just to make sure this won't be touched:
 function bogus(arg) {
     if (arg <= 0) {
@@ -128,3 +129,18 @@ function bogus(arg) {
     return testing();
 }
 
+///////////////////////////////////
+// FIXME Not supported yet section:
+///////////////////////////////////
+
+// Ternary declarations:
+var a,
+    b = foo && foo[bar]
+        ? bla[data]
+        : '';
+
+// Inline chain:
+var views = this.getViews(), chainThree = _(views).chain()
+        .keysThree()
+        .valueThree(),
+    anotherThree = 42;
