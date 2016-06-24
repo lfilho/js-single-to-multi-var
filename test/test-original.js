@@ -14,7 +14,8 @@ function testing() {
         object = {
             a: 0,
             b: 1
-        },
+        }, //empty line next:
+
         arrayWithObjects = [{
             c: 2,
             d: 3
@@ -22,6 +23,7 @@ function testing() {
             e: 4,
             f: 5
         }],
+
         functionPlusObject = calling('arg', {
             g: 6,
             h: 7

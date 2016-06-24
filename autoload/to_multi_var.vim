@@ -40,7 +40,8 @@ function! s:make_one_declaration_per_line()
                 if getline('.') =~ ';'.s:optional_line_comment.'$' && s:get_token_under_cursor_syntax() !~ 'String\|Comment\|Constant'
                     normal! a==^
                 else
-                    normal! j^
+                    call s:go_to_next_non_blank_line()
+                    normal! ^
                 endif
             elseif s:get_token_under_cursor_syntax() !~ 'String\|Comment\|Constant'
                 if s:count_occurences_from_cursor(s:line_comment) == 1
@@ -87,7 +88,8 @@ function! s:convert_declaration_block()
         let b:current_line = s:strip(getline('.'))
 
         if s:starts_with(b:current_line, '//')
-            normal! ==j
+            normal! ==
+            call s:go_to_next_non_blank_line()
             let b:current_line = s:strip(getline('.'))
         endif
 
@@ -98,7 +100,7 @@ function! s:convert_declaration_block()
             if s:starts_with(prev_line, 'var') && s:ends_with(prev_line, ';'.s:optional_line_comment)
                 call s:prepend_var()
             endif
-            normal! j
+            call s:go_to_next_non_blank_line()
 
             while s:starts_with(getline('.'), '\.')
                 normal! ==
@@ -112,16 +114,19 @@ function! s:convert_declaration_block()
                     else
                         normal! =%$
                     endif
-                    normal! %j
+                    normal! %
+                    call s:go_to_next_non_blank_line()
                 elseif s:ends_with(getline('.'), ';'.s:optional_line_comment)
-                    normal! ==j
+                    normal! ==
+                    call s:go_to_next_non_blank_line()
                     break
                 endif
 
                 if s:ends_with(getline('.'), ','.s:optional_line_comment)
                     exec 's#,'.s:optional_line_comment.'$#;\1#e'
                 endif
-                normal! ==j
+                normal! ==
+                call s:go_to_next_non_blank_line()
             endwhile
         endif
 
@@ -158,7 +163,7 @@ function! s:convert_declaration_block()
             if !s:starts_with(b:current_line, s:closing_delimiter) && !s:starts_with(b:current_line, 'var')
                 call s:prepend_var()
             endif
-            normal! j
+            call s:go_to_next_non_blank_line()
         endif
     endwhile
 endfunction
@@ -209,6 +214,15 @@ function! s:get_next_real_line()
     call setpos('.', original_cursor_position)
 
     return real_line
+endfunction
+
+function! s:go_to_next_non_blank_line()
+    normal! j
+    let l:line = s:strip(getline('.'))
+    while (l:line == '')
+        normal! j
+        let l:line = s:strip(getline('.'))
+    endwhile
 endfunction
 
 function! s:db(string, printLine)
